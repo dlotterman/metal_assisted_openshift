@@ -28,10 +28,10 @@ For the sake of being *copy + paste* useable, commands here will assume a RHEL-c
   - `sudo dnf install python39 -y`
 
 - Create the Python virtualenv
-  - `python3.9 -m venv metal_ocp_ai`
+  - `python3.9 -m venv metal_assisted_openshift`
 
 - Change into the repository directory
-  - `cd metal_ocp_ai`
+  - `cd metal_assisted_openshift`
 
 - Source the virtualenv environment setup
   - `source bin/activate`
