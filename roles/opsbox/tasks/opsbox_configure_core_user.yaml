@@ -1,0 +1,28 @@
+- name: metal_hosts_user_core
+  ansible.builtin.user:
+    name: core
+    group: wheel
+    generate_ssh_key: yes
+    ssh_key_bits: 4096
+    ssh_key_file: .ssh/core_id_rsa
+
+- name: metal_hosts_sudoers_wheel_nopasswd
+  become: true
+  become_method: sudo
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  loop:
+    - { regexp: '%wheel  ALL=(ALL)', line: '##MODIFIED_BY_ANSIBLE' }
+    - { regexp: '# %wheel', line: '%wheel        ALL=(ALL)       NOPASSWD: ALL' }
+
+- name: metal_hosts_user_core_sshkey
+  become: true
+  become_method: sudo
+  ansible.builtin.copy:
+    remote_src: yes
+    src: /root/.ssh/authorized_keys
+    dest: /home/core/.ssh/authorized_keys
+    owner: core
+    mode: '0600'

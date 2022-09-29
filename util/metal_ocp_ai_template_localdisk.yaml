@@ -1,0 +1,11 @@
+---
+- name: redhat_cloud_openshift_cluster_status
+  hosts: tag_ocp_opsbox
+  gather_facts: false
+  vars_files:
+
+  tasks:
+    - name: opsbox_template_ipxe_trafficstop_localdisk
+      include_role:
+        name: opsbox
+        tasks_from: opsbox_template_ipxe_trafficstop_localdisk.yaml

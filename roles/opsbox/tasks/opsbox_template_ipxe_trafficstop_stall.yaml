@@ -1,0 +1,7 @@
+- name: opsbox_ipxe_trafficstop_stall
+  become: true
+  become_method: sudo
+  ansible.builtin.template:
+    src: roles/opsbox/templates/stall.ipxe.j2
+    dest: /usr/share/nginx/html/ipxes/trafficstop.ipxe
+  register: opsbox_ipxe_trafficstop_stall_output

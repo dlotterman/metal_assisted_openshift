@@ -1,0 +1,9 @@
+[Unit]
+Description=split_route_for_ocp
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /metal/scripts/split_route_script.sh
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,11 @@
+---
+- include_tasks: opsbox_metal_dir_create.yaml
+- include_tasks: opsbox_configure_vlan_interface.yaml
+- include_tasks: opsbox_configure_core_user.yaml
+- include_tasks: opsbox_add_repos_and_packages.yaml
+- include_tasks: opsbox_configure_fail2ban.yaml
+- include_tasks: opsbox_configure_etc_crontab.yaml
+- include_tasks: opsbox_configure_firewalld.yaml
+- include_tasks: opsbox_configure_sshd.yaml
+- include_tasks: opsbox_template_ipxe_trafficstop_stall.yaml
+- include_tasks: opsbox_configure_ipxe.yaml

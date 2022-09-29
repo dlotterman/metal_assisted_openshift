@@ -1,0 +1,17 @@
+- name: redhat_cloud_get_openshift_infra_envs
+  uri:
+    url: "https://{{ redhat_assisted_service_api }}/api/assisted-install/v2/infra-envs/"
+    method: GET
+    headers: 
+      accept: application/json
+      Authorization: "Bearer {{ redhat_cloud_openshift_access_token }}"
+    return_content: yes
+    status_code: 200
+  register: redhat_cloud_openshift_infra_envs
+
+- name: redhat_cloud_get_openshift_infra_env_id
+  ansible.builtin.set_fact:
+    openshift_infra_env_id: "{{ item.get('id') }}"
+  loop: "{{ redhat_cloud_openshift_infra_envs.json }}"
+  when: item.get('cluster_id') == openshift_cluster_id      
+  no_log: true  

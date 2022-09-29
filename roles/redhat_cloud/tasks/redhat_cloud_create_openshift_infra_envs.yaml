@@ -1,0 +1,18 @@
+- name: redhat_cloud_openshift_create_infra_env
+  uri:
+    url: "https://{{ redhat_assisted_service_api }}/api/assisted-install/v2/infra-envs/"
+    method: POST
+    headers:
+      Content-Type: application/json
+      Authorization: "Bearer {{ redhat_cloud_openshift_access_token }}"
+    body_format: json
+    body:
+      cluster_id: "{{ openshift_cluster_id }}"
+      name: "{{ metal_ocp_name }}"
+      image_type: minimal-iso
+      ssh_authorized_key: "{{ openshift_ssh_key }}"
+      openshift_version: "{{ redhat_cluster_version }}"
+      pull_secret: "{{ openshift_pull_secret | to_json }}"
+      "cpu_architecture": "x86_64"
+    status_code: [200, 201, 422]
+  when: openshift_infra_env_id is undefined

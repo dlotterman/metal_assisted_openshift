@@ -1,0 +1,9 @@
+- name: opsbox_get_metal_details
+  uri:
+    url: "https://api.equinix.com/metal/v1/devices/{{ metal_provision_opsbox_output.devices[0].id }}"
+    method: GET
+    headers: 
+      X-Auth-Token: "{{ metal_api_token }}"
+    return_content: yes
+    status_code: 200
+  register: opsbox_get_metal_details_output

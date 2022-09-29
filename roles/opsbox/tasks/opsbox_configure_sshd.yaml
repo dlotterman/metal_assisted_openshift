@@ -1,0 +1,21 @@
+- name: opsbox_etc_ssh_sshd_config
+  become: true
+  become_method: sudo
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  loop:
+    #- { regexp: '^PermitRootLogin', line: 'PermitRootLogin no' }
+    - { regexp: '^#MaxAuthTries', line: 'MaxAuthTries 5' }
+    - { regexp: '^X11Forwarding', line: 'X11Forwarding no' }
+  register: metal_hosts_etc_ssh_sshd_config
+
+- name: opsbox_etc_ssh_restart
+  become: true
+  become_method: sudo
+  ansible.builtin.service:
+    name: sshd
+    state: restarted
+    enabled: yes
+  when: metal_hosts_etc_ssh_sshd_config.changed

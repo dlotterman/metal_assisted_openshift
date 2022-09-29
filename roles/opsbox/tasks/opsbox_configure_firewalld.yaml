@@ -1,0 +1,83 @@
+- name: opsbox_service_firewalld
+  become: true
+  become_method: sudo
+  ansible.builtin.service:
+    name: firewalld
+    state: started
+    enabled: yes
+
+- name: opsbox_firewalld_allow_ssh
+  become: true
+  become_method: sudo
+  ansible.posix.firewalld:
+    state: enabled
+    service: ssh
+    zone: public
+    permanent: yes
+  register: opsbox_firewalld
+
+- name: opsbox_firewalld_allow_http
+  become: true
+  become_method: sudo
+  ansible.posix.firewalld:
+    state: enabled
+    service: http
+    zone: public
+    permanent: yes
+  register: opsbox_firewalld
+
+- name: opsbox_firewalld_drop_all
+  become: true
+  become_method: sudo
+  ansible.posix.firewalld:
+    state: enabled
+    target: DROP
+    zone: public
+    permanent: yes
+  register: opsbox_firewalld
+  
+- name: opsbox_firewalld_allow_bond_ocp_vlan
+  become: true
+  become_method: sudo
+  ansible.posix.firewalld:
+    state: enabled
+    interface: bond0.{{ metal_ocp_vlan }}
+    zone: trusted
+    permanent: yes
+  register: opsbox_firewalld      
+
+- name: opsbox_firewalld_allow_metal_10_0_0_0_8
+  become: true
+  become_method: sudo
+  ansible.posix.firewalld:
+    state: enabled
+    source: 10.0.0.0/8
+    zone: trusted
+    permanent: yes
+  register: opsbox_firewalld
+  
+- name: opsbox_firewalld_block_icmp_redirect
+  become: true
+  become_method: sudo
+  ansible.posix.firewalld:
+    state: enabled
+    icmp_block: redirect
+    zone: trusted
+    permanent: yes
+  register: opsbox_firewalld
+
+- name: opsbox_firewalld_allow_ocp_network
+  become: true
+  become_method: sudo
+  ansible.posix.firewalld:
+    state: enabled
+    source: "{{ hostvars['localhost']['ocp_ips_reservation_network_cidr'] }}"
+    zone: trusted
+    permanent: yes
+  register: metal_hosts_firewalld
+
+- name: opsbox_firewalld_reload
+  become: true
+  become_method: sudo
+  ansible.builtin.command: firewall-cmd --reload
+  when: metal_hosts_firewalld.changed  

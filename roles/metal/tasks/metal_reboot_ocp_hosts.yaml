@@ -1,0 +1,18 @@
+---
+- name: metal_reboot_ocp_hosts
+  equinix.metal.device:
+    project_id: "{{ metal_project_id }}"
+    hostnames: "control%02d.{{ metal_ocp_domain }}"
+    tags: ocp,ocp_rhcos,ocp_control,ocp_networking
+    operating_system: custom_ipxe
+    plan: "{{ metal_ocp_control_host_config }}"
+    facility: "{{ metal_facility }}"
+    state: rebooted
+    wait_for_public_IPv: 4
+    count: "{{ metal_ocp_num_control_hosts }}"
+  register: metal_reboot_ocp_hosts_output
+
+- name: metal_reboot_ocp_hosts_wait
+  ansible.builtin.pause:
+    seconds: 480
+  when: metal_reboot_ocp_hosts_output.changed

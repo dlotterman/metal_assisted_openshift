@@ -1,0 +1,15 @@
+- name: opsbox_dir_create
+  become: true
+  become_method: sudo
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+    recurse: yes
+  loop:
+    - /metal
+    - /metal/ansible_lock_dir
+    - /metal/scripts
+    - /metal/src
+    - /metal/tftpboot
+    - /usr/share/nginx/html/ipxes

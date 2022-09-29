@@ -1,0 +1,28 @@
+- name: redhat_cloud_openshift_get_cluster_with_hosts
+  uri:
+    url: "https://{{ redhat_assisted_service_api }}/api/assisted-install/v2/clusters/{{ openshift_cluster_id }}?with_hosts=true"
+    method: GET
+    headers: 
+      accept: application/json
+      Authorization: "Bearer {{ redhat_cloud_openshift_access_token }}"
+    return_content: yes
+    status_code: 200
+  register: redhat_cloud_openshift_cluster_with_hosts
+  
+- name: redhat_cloud_build_ip_host_id_table
+  ansible.builtin.set_fact:
+    ip_host_id_table: "{{ ip_host_id_table | default ({}) | combine ({ item.inventory | from_json | json_query(query_string) | first | first | split('/') | first : item.id}) }}"
+  loop: "{{ redhat_cloud_openshift_cluster_with_hosts.json.hosts }}"
+  vars:
+    query_string: "interfaces[?name=='bond0'].ipv4_addresses"
+  no_log: true
+
+
+# Intended output
+# ok: [localhost] => {
+    # "msg": {
+        # "147.28.149.229": "1c273d26-fbab-182b-06be-de07368b6191",
+        # "147.28.149.230": "4684ff4c-f38d-1b8e-6a17-51ac4803b6f3",
+        # "147.28.149.231": "c54e7467-dd4c-ee96-1b58-e3b82eaa63a9"
+    # }
+# }

@@ -1,0 +1,12 @@
+---
+- name: metal_provision_ocp_metal_gateway
+  uri:
+    url: "https://api.equinix.com/metal/v1/projects/{{ metal_project_id }}/metal-gateways?include=virtual_network,ip_reservation"
+    method: POST
+    headers:
+      X-Auth-Token: "{{ metal_api_token }}"
+    body_format: json
+    body:
+      virtual_network_id: "{{ ocp_vlan_id }}"
+      ip_reservation_id: "{{ ocp_ip_reservation_id }}"
+    status_code: [201, 422]

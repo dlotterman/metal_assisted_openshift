@@ -1,0 +1,17 @@
+- name: redhat_cloud_get_openshift_clusters
+  uri:
+    url: "https://{{ redhat_assisted_service_api }}/api/assisted-install/v2/clusters"
+    method: GET
+    headers: 
+      accept: application/json
+      Authorization: "Bearer {{ redhat_cloud_openshift_access_token }}"
+    return_content: yes
+    status_code: 200
+  register: redhat_cloud_openshift_clusters
+
+- name: redhat_cloud_openshift_check_if_exist
+  ansible.builtin.set_fact:
+    openshift_cluster_id: "{{ item.get('id') }}"
+  loop: "{{ redhat_cloud_openshift_clusters.json }}"
+  when: item.get('name') == metal_ocp_name
+  no_log: true

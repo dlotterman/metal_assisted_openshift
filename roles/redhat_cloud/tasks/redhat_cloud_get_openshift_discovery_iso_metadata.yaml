@@ -1,0 +1,15 @@
+- name: redhat_cloud_openshift_get_iso_metadata
+  uri:
+    url: "https://{{ redhat_assisted_service_api }}/api/assisted-install/v2/infra-envs/{{ openshift_infra_env_id }}/downloads/image-url"
+    method: GET
+    headers: 
+      accept: application/json
+      Authorization: "Bearer {{ redhat_cloud_openshift_access_token }}"
+    return_content: yes
+    status_code: 200
+  register: redhat_cloud_openshift_iso_metadata
+
+      
+- name: redhat_cloud_openshift_get_iso_url_from_metadata
+  ansible.builtin.set_fact:
+    discovery_iso_url: "{{ redhat_cloud_openshift_iso_metadata.json.get('url') }}"  

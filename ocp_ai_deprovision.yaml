@@ -1,0 +1,12 @@
+---
+- name: redhat_cloud_delete_openshift_cluster
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+
+  tasks:
+    - name: redhat_cloud_delete_openshift_cluster
+      include_role:
+        name: redhat_cloud
+        tasks_from: play_redhat_cloud_delete_openshift_cluster.yaml
+

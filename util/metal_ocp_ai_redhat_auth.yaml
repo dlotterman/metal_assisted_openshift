@@ -1,0 +1,11 @@
+---
+- name: redhat_cloud_openshift_cluster_status
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+
+  tasks:
+    - name: play_redhat_cloud_openshift_cluster_status
+      include_role:
+        name: redhat_cloud
+        tasks_from: redhat_cloud_get_refresh_token.yaml

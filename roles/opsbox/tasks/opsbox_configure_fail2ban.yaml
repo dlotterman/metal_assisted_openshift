@@ -1,0 +1,26 @@
+- name: opsbox_template_fail2ban_00_firewalld_local
+  become: true
+  become_method: sudo
+  template:
+    src: roles/opsbox/templates/00-firewalld.local.j2
+    dest: /etc/fail2ban/jail.d/00-firewalld.local
+    mode: '0644'
+  register: metal_hosts_template_fail2ban_00_firewalld_local
+
+- name: opsbox_template_fail2ban_sshd_local
+  become: true
+  become_method: sudo
+  template:
+    src: roles/opsbox/templates/sshd.local.j2
+    dest: /etc/fail2ban/jail.d/sshd.local
+    mode: '0644'
+  register: metal_hosts_template_fail2ban_sshd_local
+
+- name: opsbox_service_fail2ban_restart
+  become: true
+  become_method: sudo
+  ansible.builtin.service:
+    name: fail2ban
+    state: restarted
+    enabled: yes
+  when: metal_hosts_template_fail2ban_00_firewalld_local.changed or metal_hosts_template_fail2ban_sshd_local.changed

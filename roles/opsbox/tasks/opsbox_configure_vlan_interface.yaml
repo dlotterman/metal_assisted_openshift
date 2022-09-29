@@ -1,0 +1,57 @@
+- name: opsbox_etc_modules_load_networking_conf
+  become: true
+  become_method: sudo
+  ansible.builtin.lineinfile:
+    path: /etc/modules-load.d/networking.conf
+    line: 8021q
+
+- name: opsbox_configure_vlan_interface
+  become: true
+  become_method: sudo    
+  community.general.nmcli:
+    type: vlan
+    conn_name: bond0.{{ metal_ocp_vlan }}
+    ip4: "{{ hostvars['localhost']['ocp_ips_opsbox_ip'] }}/{{ hostvars['localhost']['ocp_ips_reservation_cidr'] }}"
+    vlanid: "{{ metal_ocp_vlan }}"
+    autoconnect: yes
+    state: present
+    vlandev: bond0
+    zone: trusted
+    gw4: "{{ hostvars['localhost']['ocp_ips_gateway_ip'] }}"
+
+- name: opsbox_template_split_networking_script
+  become: true
+  become_method: sudo
+  ansible.builtin.template:
+    src: roles/opsbox/templates/split_route_script.sh.j2
+    dest: /metal/scripts/split_route_script.sh
+    mode: '0744'
+    
+- name: opsbox_template_split_networking_service
+  become: true
+  become_method: sudo
+  ansible.builtin.template:
+    src: roles/opsbox/templates/split_route_script.service.j2
+    dest: /etc/systemd/system/split_route_script.service
+
+- name: opsbox_split_networking_service_enable
+  become: true
+  become_method: sudo
+  ansible.builtin.systemd:
+    name: split_route_script.service
+    daemon_reload: yes
+    enabled: true
+    state: started
+
+- name: opsbox_sysctl_icmp_redirect
+  become: true
+  become_method: sudo
+  ansible.posix.sysctl:
+    name: "{{ item }}"
+    value: 0
+    state: present
+  loop:
+    - net.ipv4.conf.default.send_redirects
+    - net.ipv4.conf.default.accept_redirects
+    - net.ipv4.conf.all.send_redirects
+    - net.ipv4.conf.all.accept_redirects

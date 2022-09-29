@@ -1,0 +1,17 @@
+# - name: Print all available FACTS10
+  # ansible.builtin.debug:
+    #### msg: "{{ hostvars['localhost'].get('discovery_iso_url') }}"
+    # msg: "{{ openshift_infra_env_id }}"
+  #loop: "{{ redhat_cloud_openshift_clusters.json }}"
+
+
+- name: opsbox_download_openshift_discovery_iso
+  become: true
+  become_method: sudo  
+  ansible.builtin.get_url:
+    url: "{{ discovery_iso_url }}"
+    dest: /usr/share/nginx/html/discovery.iso
+    mode: '0755'
+    headers:
+      Authorization: "Bearer {{ hostvars['localhost'].get('redhat_cloud_openshift_access_token') }}"
+    force: yes

@@ -1,0 +1,87 @@
+- name: opsbox_dnf_update_packages
+  become: true
+  become_method: sudo
+  dnf:
+    name: "*"
+    state: latest
+
+- name: opsbox_dnf_install_packages_before_epel
+  become: true
+  become_method: sudo
+  dnf:
+    name:
+      - epel-release
+      - jq
+      - git
+      - firewalld
+      - vim
+      - dnf-automatic
+      - bind-utils
+      - nginx
+      - xz-devel
+      - gcc
+      - make
+      - wget
+      - dnsmasq
+      - dnsmasq-utils
+    state: latest
+
+- name: opsbox_dnf_install_packages_after_epel
+  become: true
+  become_method: sudo
+  dnf:
+    name:
+      - fail2ban
+    state: latest
+    update_cache: true
+
+
+- name: opsbox_etc_dnf_conf
+  become: true
+  become_method: sudo
+  ansible.builtin.lineinfile:
+    path: /etc/dnf/dnf.conf
+    line: "{{ item }}"
+  loop:
+    - max_parallel_downloads=10
+    - fastestmirror=True
+
+- name: opsbox_etc_dnf_automatic_conf
+  become: true
+  become_method: sudo
+  ansible.builtin.lineinfile:
+    path: /etc/dnf/automatic.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  loop:
+    - { regexp: '^apply_updates', line: 'apply_updates = yes' }
+  register: metal_hosts_etc_dnf_automatic_conf
+
+- name: opsbox_dnf_automatic_service
+  become: true
+  become_method: sudo
+  ansible.builtin.service:
+    name: dnf-automatic.timer
+    state: started
+    enabled: true
+
+- name: opsbox_reboot_check
+  become: true
+  become_method: sudo
+  ansible.builtin.command: needs-restarting -r
+  ignore_errors: True
+  register: metal_hosts_check_reboot
+
+- name: opsbox_reboot_if_needed
+  become: true
+  become_method: sudo
+  reboot:
+  when: metal_hosts_check_reboot.rc == 1
+
+- name: opsbox_reboot_wait
+  ansible.builtin.wait_for:
+    delay: 1
+    host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
+    port: 22
+    state: started
+    timeout: 500    

@@ -1,0 +1,17 @@
+- name: redhat_cloud_openshift_cluster_template_metal_hosts_json
+  ansible.builtin.template:
+    src: roles/redhat_cloud/templates/openshift_host_template.json.j2
+    dest: /tmp/openshift_host_template.json
+    mode: '0744'
+
+- name: redhat_cloud_openshift_cluster_add_metal_hosts
+  uri:
+    url: "https://{{ redhat_assisted_service_api }}/api/assisted-install/v2/infra-envs/{{ hostvars['localhost'].get('openshift_infra_env_id') }}/"
+    method: PATCH
+    headers:
+      Content-Type: application/json
+      Authorization: "Bearer {{ redhat_cloud_openshift_access_token }}"
+    src: /tmp/openshift_host_template.json
+    remote_src: no
+    status_code: [200, 201, 422]
+  when: openshift_cluster_id is defined

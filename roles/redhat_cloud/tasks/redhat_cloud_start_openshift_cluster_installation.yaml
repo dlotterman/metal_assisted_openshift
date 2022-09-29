@@ -1,0 +1,12 @@
+- name: redhat_cloud_openshift_pause_for_ready
+  ansible.builtin.pause:
+    seconds: 10
+
+- name: redhat_cloud_openshift_install_cluster
+  uri:
+    url: "https://{{ redhat_assisted_service_api }}/api/assisted-install/v2/clusters/{{ openshift_cluster_id }}/actions/install"
+    method: POST
+    headers:
+      Content-Type: application/json
+      Authorization: "Bearer {{ redhat_cloud_openshift_access_token }}"
+    status_code: [200, 201, 202]

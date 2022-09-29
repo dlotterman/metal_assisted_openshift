@@ -1,0 +1,34 @@
+- name: redhat_cloud_create_openshift_cluster
+  uri:
+    url: "https://{{ redhat_assisted_service_api }}/api/assisted-install/v2/clusters"
+    method: POST
+    headers:
+      Content-Type: application/json
+      Authorization: "Bearer {{ redhat_cloud_openshift_access_token }}"
+    body_format: json
+    body:
+      kind: Cluster
+      name: "{{ metal_ocp_name }}"
+      openshift_version: "{{ redhat_cluster_version }}"
+      ocp_release_image: "{{ redhat_cluster_image }}" 
+      base_dns_domain: "{{ metal_ocp_basedomain }}"
+      hyperthreading: "all"
+      ingress_vip: "{{ ocp_ips_apps_ip }}"
+      api_vip: "{{ ocp_ips_api_ip }}"
+      schedulable_masters: true
+      high_availability_mode: "Full"
+      user_managed_networking: false
+      platform:
+        type: baremetal
+      cluster_networks:
+        - { "cidr": "{{ redhat_cluster_network }}", "host_prefix": 23 } 
+      service_networks:
+        - { "cidr": "{{ redhat_service_network }}" }
+      machine_networks: 
+        - { "cidr": "{{ ocp_ips_reservation_network_cidr }}" }
+      network_type: OpenShiftSDN
+      vip_dhcp_allocation: false
+      ssh_public_key: "{{ openshift_ssh_key }}"
+      pull_secret: "{{ openshift_pull_secret | to_json }}"
+    status_code: [200, 201, 422]
+  when: openshift_cluster_id is undefined

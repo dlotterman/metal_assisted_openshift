@@ -1,0 +1,8 @@
+---
+- include_role:
+    name: metal
+    tasks_from: metal_get_or_provision_ocp_ip_reservation.yaml
+    apply:
+      delegate_to: localhost
+
+- include_tasks: opsbox_template_ipxe_trafficstop_localdisk.yaml

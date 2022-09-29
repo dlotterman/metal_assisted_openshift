@@ -1,0 +1,23 @@
+- name: redhat_cloud_bearer_token_print
+  ansible.builtin.debug:
+    msg: "Redhat Cloud Bearer Token {{ redhat_cloud_openshift_access_token }}"
+
+- name: redhat_cloud_assister_service_api
+  ansible.builtin.debug:
+    msg: "API string {{ redhat_assisted_service_api }}"
+
+- name: redhat_cloud_openshift_cluster_status_print
+  ansible.builtin.debug:
+    msg: " {{ redhat_cloud_openshift_cluster_with_hosts.json }}"
+
+- name: redhat_cloud_openshift_cluster_host_id_print
+  ansible.builtin.debug:
+    msg: "{{ ip_host_id_table }}"
+
+- name: redhat_cloud_openshift_cluster_id_print
+  ansible.builtin.debug:
+    msg: "OCP Cluster ID {{ openshift_cluster_id }}"
+
+- name: redhat_cloud_openshift_cluster_id_print
+  ansible.builtin.debug:
+    msg: "OCP Infra ID {{ openshift_infra_env_id }}"

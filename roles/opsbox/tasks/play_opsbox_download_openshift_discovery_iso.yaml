@@ -1,0 +1,33 @@
+---
+- include_role:
+    name: metal
+    tasks_from: metal_get_or_provision_ocp_ip_reservation.yaml
+    apply:
+      delegate_to: localhost
+
+- include_role:
+    name: redhat_cloud
+    tasks_from: redhat_cloud_get_refresh_token.yaml
+    apply:
+      delegate_to: localhost    
+
+- include_role:
+    name: redhat_cloud
+    tasks_from: redhat_cloud_get_openshift_clusters.yaml
+    apply:
+      delegate_to: localhost    
+
+- include_role:
+    name: redhat_cloud
+    tasks_from: redhat_cloud_get_openshift_infra_envs.yaml
+    apply:
+      delegate_to: localhost    
+
+- include_role:
+    name: redhat_cloud
+    tasks_from: redhat_cloud_get_openshift_discovery_iso_metadata.yaml
+    apply:
+      delegate_to: localhost    
+
+- include_tasks: opsbox_download_openshift_discovery_iso.yaml
+- include_tasks: opsbox_template_ipxe_trafficstop_discovery_iso.yaml

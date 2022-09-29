@@ -1,0 +1,25 @@
+redhat_cloud_openshift_token: "{{ lookup('env', 'REDHAT_CLOUD_OPENSHIFT_TOKEN') }}"
+redhat_assisted_service_api: api.openshift.com
+redhat_cluster_version: "4.10"
+redhat_cluster_image: quay.io/openshift-release-dev/ocp-release:4.10.0-x86_64
+redhat_cluster_network: 10.128.0.0/14
+redhat_service_network: 172.31.0.0/16
+
+metal_host_interface_prefix: ens3f
+
+openshift_ssh_key: "{{ lookup('env', 'OCP_PUBLIC_SSH_KEY') }}"
+
+openshift_pull_secret:
+  auths:
+    cloud.openshift.com:
+      auth: "{{ lookup('env', 'REDHAT_CLOUD_PULL_SECRET_AUTH') }}"
+      email: "{{ lookup('env', 'REDHAT_CLOUD_PULL_SECRET_EMAIL') }}"
+    quay.io:
+      auth: "{{ lookup('env', 'REDHAT_CLOUD_PULL_SECRET_AUTH') }}"
+      email: "{{ lookup('env', 'REDHAT_CLOUD_PULL_SECRET_EMAIL') }}"
+    registry.connect.redhat.com:
+      auth: "{{ lookup('env', 'REDHAT_CLOUD_PULL_SECRET_REGISTRY_AUTH') }}"
+      email: "{{ lookup('env', 'REDHAT_CLOUD_PULL_SECRET_EMAIL') }}"
+    registry.redhat.io:
+      auth: "{{ lookup('env', 'REDHAT_CLOUD_PULL_SECRET_REGISTRY_AUTH') }}"
+      email: "{{ lookup('env', 'REDHAT_CLOUD_PULL_SECRET_EMAIL') }}"

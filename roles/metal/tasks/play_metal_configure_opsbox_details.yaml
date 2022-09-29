@@ -1,0 +1,5 @@
+---
+- include_tasks: metal_get_or_provision_ocp_ip_reservation.yaml
+- include_tasks: metal_get_or_provision_opsbox.yaml
+- include_tasks: metal_get_opsbox_details.yaml
+- include_tasks: metal_attach_opsbox_ocp_vlan.yaml

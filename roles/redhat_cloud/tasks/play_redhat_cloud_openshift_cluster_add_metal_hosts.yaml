@@ -1,0 +1,15 @@
+---
+- include_role:
+    name: metal
+    tasks_from: metal_get_or_provision_ocp_ip_reservation.yaml
+- include_role:
+    name: metal
+    tasks_from: metal_get_ocp_networking_hosts_details.yaml
+- include_role:
+    name: metal
+    tasks_from: metal_build_mac_tables.yaml
+    
+- include_tasks: redhat_cloud_get_refresh_token.yaml
+- include_tasks: redhat_cloud_get_openshift_clusters.yaml
+- include_tasks: redhat_cloud_get_openshift_infra_envs.yaml
+- include_tasks: redhat_cloud_openshift_cluster_add_metal_hosts.yaml

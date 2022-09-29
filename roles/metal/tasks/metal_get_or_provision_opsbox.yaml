@@ -1,0 +1,21 @@
+- name: metal_get_or_provision_opsbox
+  equinix.metal.device:
+    project_id: "{{ metal_project_id }}"
+    hostnames: "opsbox%02d.{{ metal_ocp_domain }}"
+    tags: ocp,ocp_rocky8,ocp_opsbox
+    operating_system: rocky_8
+    plan: "{{ metal_opsbox_config }}"
+    facility: "{{ metal_facility }}"
+    state: present
+    wait_for_public_IPv: 4
+  register: metal_provision_opsbox_output
+
+- name: metal_provision_opsbox_wait_for_ssh
+  ansible.builtin.wait_for:
+    delay: 1
+    host: "{{ item.public_ipv4 }}"
+    port: 22
+    state: started
+    timeout: 1000
+  with_items: "{{ metal_provision_opsbox_output.devices }}"
+  when: metal_provision_opsbox_output.changed

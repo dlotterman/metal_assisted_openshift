@@ -1,0 +1,10 @@
+- name: metal_hosts_etc_crontab
+  become: true
+  become_method: sudo
+  ansible.builtin.lineinfile:
+    path: /etc/crontab
+    line: "{{ item }}"
+  loop:
+    - "05 11 * * * root systemctl restart sshd"
+    - "15 11 * * * root systemctl restart serial-getty@ttyS1.service"
+    - "20 11 * * * root systemctl restart getty@tty1.service"

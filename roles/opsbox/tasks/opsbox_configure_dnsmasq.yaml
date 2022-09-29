@@ -1,0 +1,37 @@
+- name: opsbox_template_dnsmasq_conf
+  become: yes
+  become_method: sudo    
+  template:
+    src: roles/opsbox/templates/dnsmasq.conf.j2
+    dest: /etc/dnsmasq.conf
+  register: dnsmasq_conf
+  
+- name: metal_hosts_service_dnsmasq_restart
+  become: true
+  become_method: sudo
+  ansible.builtin.service:
+    name: dnsmasq
+    state: restarted
+    enabled: yes
+  when: dnsmasq_conf.changed 
+
+- name: metal_standup_opsbox_self_dns
+  become: true
+  become_method: sudo    
+  community.general.nmcli:
+    conn_name: bond0
+    state: present
+    dns4:
+      - 127.0.0.1
+      - 147.75.207.207
+      - 147.75.207.208
+  register: self_dns_register
+
+- name: metal_standup_opsbox_self_dns_network_restart
+  become: true
+  become_method: sudo
+  ansible.builtin.service:
+    name: NetworkManager
+    enabled: true
+    state: restarted
+  when: self_dns_register.changed

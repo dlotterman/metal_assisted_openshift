@@ -1,0 +1,16 @@
+- name: metal_build_ip_host_table
+  ansible.builtin.set_fact:
+    ip_host_table: "{{ ip_host_table | default({}) | combine ({ ocp_ips_reservation_network_cidr | ansible.utils.nthhost(ansible_loop.index + 4) : item }) }}"   
+  loop: "{{ query('inventory_hostnames', 'tag_ocp_networking') }}"     
+  loop_control:
+    extended: yes       
+
+
+# Intended table
+# ok: [localhost] => {
+    # "msg": {
+        # "control01.ocp04.da.dlott.casa": "147.28.149.230",
+        # "control02.ocp04.da.dlott.casa": "147.28.149.231",
+        # "control03.ocp04.da.dlott.casa": "147.28.149.229"
+    # }
+# }

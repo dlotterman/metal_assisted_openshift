@@ -1,0 +1,6 @@
+- name: opsbox_template_ipxe_trafficstop_localdisk
+  become: true
+  become_method: sudo
+  ansible.builtin.template:
+    src: roles/opsbox/templates/localdisk.ipxe.j2
+    dest: /usr/share/nginx/html/ipxes/trafficstop.ipxe

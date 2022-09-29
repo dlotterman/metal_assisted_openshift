@@ -1,0 +1,6 @@
+---
+- include_tasks: metal_provision_ocp_vlan.yaml
+- include_tasks: metal_get_ocp_vlan_id.yaml
+- include_tasks: metal_get_or_provision_ocp_ip_reservation.yaml
+- include_tasks: metal_provision_metal_gateway.yaml
+

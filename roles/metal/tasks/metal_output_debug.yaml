@@ -1,0 +1,8 @@
+- name: metal_ip_information
+  ansible.builtin.debug:
+    msg: 
+      - "ocp_ips_reservation_network_cidr: {{ ocp_ips_reservation_network_cidr }}"
+      - "ocp_ips_gateway_ip: {{ ocp_ips_gateway_ip }}"
+      - "ocp_ips_opsbox_ip: {{ ocp_ips_opsbox_ip }}"
+      - "ocp_ips_apps_ip: {{ ocp_ips_apps_ip }}"
+      - "ocp_ips_api_ip: {{ ocp_ips_api_ip }}"

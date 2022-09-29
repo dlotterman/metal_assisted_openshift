@@ -1,0 +1,5 @@
+---
+- include_tasks: redhat_cloud_get_refresh_token.yaml
+- include_tasks: redhat_cloud_get_openshift_clusters.yaml
+
+- include_tasks: redhat_cloud_start_openshift_cluster_installation.yaml

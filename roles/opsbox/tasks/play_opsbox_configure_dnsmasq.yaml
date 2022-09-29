@@ -1,0 +1,11 @@
+---
+- include_role:
+    name: metal
+    tasks_from: metal_get_ocp_networking_hosts_details.yaml
+- include_role:
+    name: metal
+    tasks_from: metal_build_mac_tables.yaml
+- include_role:
+    name: metal
+    tasks_from: metal_get_or_provision_ocp_ip_reservation.yaml
+- include_tasks: opsbox_configure_dnsmasq.yaml
