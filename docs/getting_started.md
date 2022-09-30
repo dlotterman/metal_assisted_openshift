@@ -1,5 +1,6 @@
 ## Getting Started
-TODO
+
+Before beginning, it is strongly recomemended that an operator complete the [Equinix Metal Getting Started](https://metal.equinix.com/developers/docs/) guide before proceeding with anything referenced here. The getting started documentation will make sure the account is correctly setup and walk the operator through the basics of operating Metal.
 
 ### Required Accounts and Credentials:
 
@@ -8,15 +9,15 @@ TODO
 - [Redhat Cloud OpenShift Manager API Token](https://console.redhat.com/openshift/token)
 - [Redhat Cloud OpenShift pull-secret](https://console.redhat.com/openshift/install/pull-secret)
 
-You will also need an SSH key-pair to use as the administrative SSH credentials to log into the Control / Worker nodes. You can use the same SSH key-pair as your Metal account or create a new one. Ansible will assume that passwordless SSH authentication so the keys must be properly configured prior to beginning. 
+You will also need an SSH key-pair to use as the administrative SSH credentials to log into the Control / Worker nodes. You can use the same SSH key-pair as your [Metal account](https://metal.equinix.com/developers/docs/accounts/ssh-keys/) or create a new one specific to OCP cluster management. Ansible will assume passwordless SSH authentication so the keys must be properly configured prior to beginning. 
 
 ### Environment setup:
 
-This guide assumes a modern but *simple* execution environment that makes use of Python's virtualenv functionality to create a isolated workspace. Any distrobution with a Python distrobution version of `3.8` or greater should work as expected.
+This guide assumes a modern but *simple* execution environment. It makes use of Python's virtualenv functionality to create a isolated workspace. Any OS with a Python distrobution version of `3.8` or greater should work as expected.
 
-Besides standard Linux tooling, the remaining requirement is access to the public Internet for the packageinstallation and reaching the Metal and Redhat Cloud's public APIs. There is no requirement for the environment to be able to host public facing applications, as in a NAT'ed VM or equivalent should work fine.
+Besides standard nix-like tooling, the remaining requirement is access to the public Internet for the package installation and reaching the Metal and Redhat Cloud's public APIs. There is no requirement for the environment to be able to host public facing applications, as in a NAT'ed VM or equivalent should work fine.
 
-For the sake of being *copy + paste* useable, commands here will assume a RHEL-clone (CentOS, Rocky or Alma) environment.
+For the sake of being *copy + paste* useable, commands here will assume a RHEL8-clone (CentOS, Rocky or Alma) environment.
 
 - [Install git](https://github.com/git-guides/install-git)
   - `sudo dnf install git -y`
@@ -28,7 +29,9 @@ For the sake of being *copy + paste* useable, commands here will assume a RHEL-c
   - `sudo dnf install python39 -y`
 
 - Create the Python virtualenv
-  - `python3.9 -m venv metal_assisted_openshift`
+  - `python3 -m venv metal_assisted_openshift`
+  - On RHEL8-clone
+	- `python3.9 -m venv metal_assisted_openshift`
 
 - Change into the repository directory
   - `cd metal_assisted_openshift`
@@ -41,6 +44,10 @@ For the sake of being *copy + paste* useable, commands here will assume a RHEL-c
 
 - Install Python packages required
   - `pip install -r requirements.txt`
+
+- (On Ubuntu 20.04):
+Install Equinix Metal Ansible Galaxy Collection
+    - `ansible-galaxy collection install equinix.metal`
 
 #### Per session / authentication setup
 Each time you start a new shell session, I.E a new ssh session or new `tmux` session, you will need to set certain environment variables related to your Metal and Redhat Cloud account.
@@ -90,6 +97,32 @@ This is the fun part. Execute this command to have Ansible provision the Equinix
 
 `ansible-playbook -i equinix_metal.yaml -u root metal_ocp_ai_provision.yaml`
 
+To run the playbook without having Ansible stop to prompt for SSH Keys and just auto-accept them:
+`ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i equinix_metal.yaml -u root metal_ocp_ai_provision.yaml`
+
 It can take up an hour and a half for it to complete, you can watch the progress from:
 - The session running Ansible which will progress through named steps
-- The Equinix Metal UI (It can be fun to watch the [SOS](https://metal.equinix.com/developers/docs/resilience-recovery/serial-over-ssh/) of one of the control instances as it goes through the installation) 
+- The Equinix Metal UI (It can be fun to watch the [SOS](https://metal.equinix.com/developers/docs/resilience-recovery/serial-over-ssh/) of one of the control instances as it goes through the installation)
+- The [Redhat Cloud Console](https://console.redhat.com/openshift/), which will provide the best view on cluster installation status
+
+
+#### Common Errors:
+
+- SSH Error to OpsBox
+
+        ```failed: [opsbox01.ocp06.da.dlott.casa] (item=/metal) => {"ansible_loop_var": "item", "item": "/metal", "msg": "Failed to connect to the host via ssh: Warning: Permanently added '147.75.53.55' (ECDSA) to the list of known hosts.\r\nroot@147.75.53.55: Permission denied (publickey).", "unreachable": true}
+        failed: [opsbox01.ocp06.da.dlott.casa] (item=/metal/ansible_lock_dir) => {"ansible_loop_var": "item", "item": "/metal/ansible_lock_dir", "msg": "Failed to connect to the host via ssh: root@147.75.53.55: Permission denied (publickey).", "unreachable": true}
+        ```
+  - Ensure the execution environment you have is setup with the right private SSH keys as to use the same Public SSH key uploaded to your [Metal Account](https://metal.equinix.com/developers/docs/accounts/ssh-keys/)
+
+#### De-provisioning the environment
+
+The Redhat Cluster can be deleted via `ansible-playbook -i equinix_metal.yaml -u root ocp_ai_deprovision.yaml` . Note that the Redhat Cloud console exposes 2x seperate entries (`Assisted cluster ID` vs `Cluster ID`) for the cluster in it's UI, one for the hosted [Assited Installer service](https://console.redhat.com/openshift/assisted-installer/clusters/) and one for the [OpenShift Cloud platform](https://console.redhat.com/openshift). The playbook only deletes the Assisted Installer entry, to delete the OpenShift Cloud entry, simply archive it through the UI.
+
+If someothing goes wrong with the Redhat Cloud steps, it is possible to walk back only the Redhat Cloud steps, as in run the `ocp_ai_deprovision.yaml` playbook and archive the other cluster object and re-run the playbook. The Metal steps are idempotent once provisioned and can be re-run as needed.
+
+To delete the Metal provisions and return to a clean project:
+* Delete the Metal Instances
+* Delete the Metal Gateway
+* Delete the Metal VLAN
+* Delete the Metal IP Reservation (note you can leave this is you have DNS set and it will be correctly re-used)
