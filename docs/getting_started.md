@@ -94,10 +94,10 @@ If everything is setup correctly, you should be able to run `ansible-inventory -
 
 This is the fun part. Execute this command to have Ansible provision the Equinix Metal resources and bootstrap them through the Redhat Cloud managed OpenShift installation process.
 
-`ansible-playbook -i equinix_metal.yaml -u root metal_ocp_ai_provision.yaml`
+- `ansible-playbook -i equinix_metal.yaml -u root metal_ocp_ai_provision.yaml`
 
 To run the playbook without having Ansible stop to prompt for SSH Keys and just auto-accept them:
-`ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i equinix_metal.yaml -u root metal_ocp_ai_provision.yaml`
+- `ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i equinix_metal.yaml -u root metal_ocp_ai_provision.yaml`
 
 It can take up an hour and a half for it to complete, you can watch the progress from:
 - The session running Ansible which will progress through named steps

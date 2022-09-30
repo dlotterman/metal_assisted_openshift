@@ -12,6 +12,8 @@ This repository should be considered exploratory documentation only, it should n
 1. [Getting Started](docs/getting_started.md)
 2. [Known Issues](docs/known_issues.md)
 
-### Marketechture Diagram
+### Marketechture Diagram and Demo Video
 
 ![](https://s3.us-east-1.wasabisys.com/metalstaticassets/metal_openshift_diagram.JPG)
+
+- [Time accelerated demo video](https://equinixinc-my.sharepoint.com/:v:/g/personal/dlotterman_equinix_com/EQ8sqptzxftClH3fVmJrvJgBYq7NIE3hNL3NaDrzNZyL4g?e=wr4SMi)
