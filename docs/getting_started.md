@@ -45,9 +45,8 @@ For the sake of being *copy + paste* useable, commands here will assume a RHEL8-
 - Install Python packages required
   - `pip install -r requirements.txt`
 
-- (On Ubuntu 20.04):
-Install Equinix Metal Ansible Galaxy Collection
-    - `ansible-galaxy collection install equinix.metal`
+- Install Equinix Metal Ansible Galaxy Collection
+  - `ansible-galaxy collection install equinix.metal`
 
 #### Per session / authentication setup
 Each time you start a new shell session, I.E a new ssh session or new `tmux` session, you will need to set certain environment variables related to your Metal and Redhat Cloud account.
@@ -59,8 +58,8 @@ These are:
 - `export METAL_API_TOKEN=$YOUR_METAL_API_KEY_HERE`
 - `export METAL_PROJ_ID=YOUR_METAL_PROJECT_ID_HERE`
 - `export REDHAT_CLOUD_OPENSHIFT_TOKEN=$YOUR_REDHAT_CLOUD_OPENSHIFT_TOKEN_HERE`
-- `export REDHAT_CLOUD_PULL_SECRET_AUTH=$REDHAT_CLOUD_PULL_SECRET_AUTH`
-- `export REDHAT_CLOUD_PULL_SECRET_REGISTRY_AUTH=$REDHAT_CLOUD_PULL_SECRET_REGISTRY_AUTH`
+- `export REDHAT_CLOUD_PULL_SECRET_AUTH=$REDHAT_CLOUD_PULL_SECRET_AUTH` --- *{"cloud.openshift.com":{"auth"* in your pull-secret.txt
+- `export REDHAT_CLOUD_PULL_SECRET_REGISTRY_AUTH=$REDHAT_CLOUD_PULL_SECRET_REGISTRY_AUTH` --- *registry.connect.redhat.com":{"auth":"* in your pull-secret.txt
 - `export REDHAT_CLOUD_PULL_SECRET_EMAIL=$REDHAT_CLOUD_PULL_SECRET_EMAIL`
 - `export OCP_PUBLIC_SSH_KEY=$OCP_PUBLIC_SSH_KEY`
 
