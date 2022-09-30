@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: false
   vars:
-    - ansible_python_interpreter: auto_silent  
+    - ansible_python_interpreter: "{{ ansible_playbook_python }}"
 
   tasks:
     - name: metal_provision_environment
@@ -39,8 +39,7 @@
   hosts: localhost
   gather_facts: false
   vars:
-    - ansible_python_interpreter: auto_silent  
-
+    - ansible_python_interpreter: "{{ ansible_playbook_python }}"
   tasks:
 
     - name: metal_provision_ocp_control_hosts
@@ -72,7 +71,7 @@
   hosts: localhost
   gather_facts: false
   vars:
-    - ansible_python_interpreter: auto_silent  
+    - ansible_python_interpreter: "{{ ansible_playbook_python }}"
 
   tasks:
 
@@ -107,7 +106,7 @@
   hosts: localhost
   gather_facts: false
   vars:
-    - ansible_python_interpreter: auto_silent  
+    - ansible_python_interpreter: "{{ ansible_playbook_python }}"
 
   tasks:
     - name: metal_reboot_ocp_hosts
