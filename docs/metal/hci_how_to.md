@@ -43,17 +43,17 @@ This will be used to write out a couple of configuration files as well as just b
     - Go to the "YAML" tab
 	- In the YAML editor, near the top should be a section for "annotations", add `storageclass.kubernetes.io/is-default-class: 'true'`, this should make this stanza of yaml look like:
 	  ``` kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name: ocs-storagecluster-ceph-rbd
-  uid: dd76b703-01d3-4a45-bf2c-6a6dc7003c29
-  resourceVersion: '431189'
-  creationTimestamp: '2022-10-05T13:18:46Z'
-  annotations:
-    description: 'Provides RWO Filesystem volumes, and RWO and RWX Block volumes'
-	storageclass.kubernetes.io/is-default-class: 'true'
-  managedFields:
-```
+	  apiVersion: storage.k8s.io/v1
+	  metadata:
+	    name: ocs-storagecluster-ceph-rbd
+	    uid: dd76b703-01d3-4a45-bf2c-6a6dc7003c29
+	   resourceVersion: '431189'
+       creationTimestamp: '2022-10-05T13:18:46Z'
+       annotations:
+         description: 'Provides RWO Filesystem volumes, and RWO and RWX Block volumes'
+	     storageclass.kubernetes.io/is-default-class: 'true'
+        managedFields:
+	  ```
     - Click "Save"
 
 #### Install Virtualization
