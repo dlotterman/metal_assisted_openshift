@@ -9,5 +9,5 @@
     body:
       host_name: "{{ ip_host_table.get(item.key) }}"
     status_code: [200, 201, 422]
-  loop: "{{ lookup('ansible.builtin.dict', ip_host_id_table) }}"
+  loop: "{{ lookup('ansible.builtin.dict', ip_host_id_table, wantlist=True) }}"
   when: ip_host_table.get(item.key)
