@@ -1,5 +1,5 @@
 ---
-- name: metal_provision_ocp_metal_vlan
+- name: metal_provision_ocp_vlan
   uri:
     url: "https://api.equinix.com/metal/v1/projects/{{ metal_project_id }}/virtual-networks"
     method: POST

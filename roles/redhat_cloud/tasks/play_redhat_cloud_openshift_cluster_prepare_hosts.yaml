@@ -12,3 +12,4 @@
 
 - include_tasks: redhat_cloud_build_ip_host_id_table.yaml
 - include_tasks: redhat_cloud_openshift_cluster_rename_hosts.yaml
+- include_tasks: redhat_cloud_openshift_cluster_assign_roles.yaml

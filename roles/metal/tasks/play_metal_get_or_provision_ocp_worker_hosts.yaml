@@ -1,0 +1,3 @@
+---
+- include_tasks: metal_get_or_provision_ocp_ip_reservation.yaml
+- include_tasks: metal_get_or_provision_ocp_worker_hosts.yaml

@@ -1,10 +1,17 @@
+---
 - name: metal_build_ip_host_table
   ansible.builtin.set_fact:
     ip_host_table: "{{ ip_host_table | default({}) | combine ({ ocp_ips_reservation_network_cidr | ansible.utils.nthhost(ansible_loop.index + 4) : item }) }}"   
-  loop: "{{ query('inventory_hostnames', 'tag_ocp_networking') }}"     
+  loop: "{{ query('inventory_hostnames', 'tag_ocp_networking') }}"
   loop_control:
-    extended: yes       
+    extended: yes   
 
+- name: metal_build_host_ip_table
+  ansible.builtin.set_fact:
+    host_ip_table: "{{ host_ip_table | default({}) | combine({item.value : item.key})}}"
+  loop: "{{ lookup('ansible.builtin.dict', ip_host_table) }}"
+  loop_control:
+    extended: yes
 
 # Intended table
 # ok: [localhost] => {

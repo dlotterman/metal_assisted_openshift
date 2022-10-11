@@ -17,7 +17,7 @@
         tasks_from: play_metal_get_or_provision_opsbox.yaml
 
     - meta: refresh_inventory
-    
+
     - name: metal_configure_opsbox_details
       include_role:
         name: metal
@@ -27,15 +27,15 @@
   hosts: tag_ocp_opsbox
   gather_facts: false
   vars:
-    - ansible_python_interpreter: auto_silent  
+    - ansible_python_interpreter: auto_silent
   tasks:
-  
+
     - name: play_opsbox_configure_host
       include_role:
         name: opsbox
         tasks_from: play_opsbox_configure_host.yaml
 
-- name: metal_provision_control_hosts
+- name: metal_provision_ocp_hosts
   hosts: localhost
   gather_facts: false
   vars:
@@ -47,8 +47,13 @@
         name: metal
         tasks_from: play_metal_get_or_provision_ocp_control_hosts.yaml
 
+    - name: metal_get_or_provision_ocp_worker_hosts
+      include_role:
+        name: metal
+        tasks_from: play_metal_get_or_provision_ocp_worker_hosts.yaml
+
     - meta: refresh_inventory
-    
+
     - name: metal_configure_ocp_networking_hosts_details
       include_role:
         name: metal
@@ -59,7 +64,7 @@
   gather_facts: false
   strategy: linear
   vars:
-    - ansible_python_interpreter: auto_silent  
+    - ansible_python_interpreter: auto_silent
   tasks:
 
     - name: play_opsbox_configure_dnsmasq
@@ -89,14 +94,14 @@
       include_role:
         name: redhat_cloud
         tasks_from: play_redhat_cloud_openshift_cluster_add_metal_hosts.yaml
-        
+
 - name: opsbox_download_openshift_discovery_iso
   hosts: tag_ocp_opsbox
   gather_facts: false
   vars:
-    - ansible_python_interpreter: auto_silent  
+    - ansible_python_interpreter: auto_silent
   tasks:
-  
+
     - name: opsbox_download_openshift_discovery_iso
       include_role:
         name: opsbox
@@ -118,13 +123,13 @@
   hosts: localhost
   gather_facts: false
   vars:
-    - ansible_python_interpreter: auto_silent  
+    - ansible_python_interpreter: auto_silent
 
   tasks:
-    - name: play_redhat_cloud_openshift_cluster_rename_hosts
+    - name: play_redhat_cloud_openshift_cluster_prepare_hosts
       include_role:
         name: redhat_cloud
-        tasks_from: play_redhat_cloud_openshift_cluster_rename_hosts.yaml
+        tasks_from: play_redhat_cloud_openshift_cluster_prepare_hosts.yaml
 
     - name: play_redhat_cloud_start_openshift_cluster_installation
       include_role:
@@ -137,7 +142,7 @@
   vars:
     - ansible_python_interpreter: auto_silent
 
-  tasks: 
+  tasks:
     - name: play_opsbox_template_ipxe_trafficstop_localdisk
       include_role:
         name: opsbox
