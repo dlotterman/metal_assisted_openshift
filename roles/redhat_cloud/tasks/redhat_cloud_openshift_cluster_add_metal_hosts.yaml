@@ -1,3 +1,4 @@
+---
 - name: redhat_cloud_openshift_cluster_template_metal_hosts_json
   ansible.builtin.template:
     src: roles/redhat_cloud/templates/openshift_host_template.json.j2
@@ -12,6 +13,6 @@
       Content-Type: application/json
       Authorization: "Bearer {{ redhat_cloud_openshift_access_token }}"
     src: /tmp/openshift_host_template.json
-    remote_src: no
+    remote_src: false
     status_code: [200, 201, 422]
   when: openshift_cluster_id is defined

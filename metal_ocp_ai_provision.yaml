@@ -1,118 +1,118 @@
 ---
-# - name: metal_provision_environment
-  # hosts: localhost
-  # gather_facts: false
-  # vars:
-    # - ansible_python_interpreter: "{{ ansible_playbook_python }}"
+- name: metal_provision_environment
+  hosts: localhost
+  gather_facts: false
+  vars:
+    - ansible_python_interpreter: "{{ ansible_playbook_python }}"
 
-  # tasks:
-    # - name: metal_provision_environment
-      # include_role:
-        # name: metal
-        # tasks_from: play_metal_provision_environment.yaml
+  tasks:
+    - name: metal_provision_environment
+      include_role:
+        name: metal
+        tasks_from: play_metal_provision_environment.yaml
 
-    # - name: metal_provision_opsbox
-      # include_role:
-        # name: metal
-        # tasks_from: play_metal_get_or_provision_opsbox.yaml
+    - name: metal_provision_opsbox
+      include_role:
+        name: metal
+        tasks_from: play_metal_get_or_provision_opsbox.yaml
 
-    # - meta: refresh_inventory
+    - meta: refresh_inventory
     
-    # - name: metal_configure_opsbox_details
-      # include_role:
-        # name: metal
-        # tasks_from: play_metal_configure_opsbox_details.yaml
+    - name: metal_configure_opsbox_details
+      include_role:
+        name: metal
+        tasks_from: play_metal_configure_opsbox_details.yaml
 
-# - name: opsbox_configure_host
-  # hosts: tag_ocp_opsbox
-  # gather_facts: false
-  # vars:
-    # - ansible_python_interpreter: auto_silent  
-  # tasks:
+- name: opsbox_configure_host
+  hosts: tag_ocp_opsbox
+  gather_facts: false
+  vars:
+    - ansible_python_interpreter: auto_silent  
+  tasks:
   
-    # - name: play_opsbox_configure_host
-      # include_role:
-        # name: opsbox
-        # tasks_from: play_opsbox_configure_host.yaml
+    - name: play_opsbox_configure_host
+      include_role:
+        name: opsbox
+        tasks_from: play_opsbox_configure_host.yaml
 
-# - name: metal_provision_control_hosts
-  # hosts: localhost
-  # gather_facts: false
-  # vars:
-    # - ansible_python_interpreter: "{{ ansible_playbook_python }}"
-  # tasks:
+- name: metal_provision_control_hosts
+  hosts: localhost
+  gather_facts: false
+  vars:
+    - ansible_python_interpreter: "{{ ansible_playbook_python }}"
+  tasks:
 
-    # - name: metal_get_or_provision_ocp_control_hosts
-      # include_role:
-        # name: metal
-        # tasks_from: play_metal_get_or_provision_ocp_control_hosts.yaml
+    - name: metal_get_or_provision_ocp_control_hosts
+      include_role:
+        name: metal
+        tasks_from: play_metal_get_or_provision_ocp_control_hosts.yaml
 
-    # - meta: refresh_inventory
+    - meta: refresh_inventory
     
-    # - name: metal_configure_ocp_networking_hosts_details
-      # include_role:
-        # name: metal
-        # tasks_from: play_metal_configure_ocp_networking_hosts_details.yaml
+    - name: metal_configure_ocp_networking_hosts_details
+      include_role:
+        name: metal
+        tasks_from: play_metal_configure_ocp_networking_hosts_details.yaml
 
-# - name: opsbox_configure_dnsmasq
-  # hosts: tag_ocp_opsbox
-  # gather_facts: false
-  # strategy: linear
-  # vars:
-    # - ansible_python_interpreter: auto_silent  
-  # tasks:
+- name: opsbox_configure_dnsmasq
+  hosts: tag_ocp_opsbox
+  gather_facts: false
+  strategy: linear
+  vars:
+    - ansible_python_interpreter: auto_silent  
+  tasks:
 
-    # - name: play_opsbox_configure_dnsmasq
-      # include_role:
-        # name: opsbox
-        # tasks_from: play_opsbox_configure_dnsmasq.yaml
+    - name: play_opsbox_configure_dnsmasq
+      include_role:
+        name: opsbox
+        tasks_from: play_opsbox_configure_dnsmasq.yaml
 
-# - name: redhat_cloud_create_openshift_cluster_and_configure
-  # hosts: localhost
-  # gather_facts: false
-  # vars:
-    # - ansible_python_interpreter: "{{ ansible_playbook_python }}"
+- name: redhat_cloud_create_openshift_cluster_and_configure
+  hosts: localhost
+  gather_facts: false
+  vars:
+    - ansible_python_interpreter: "{{ ansible_playbook_python }}"
 
-  # tasks:
+  tasks:
 
-    # - name: redhat_cloud_create_openshift_cluster
-      # include_role:
-        # name: redhat_cloud
-        # tasks_from: play_redhat_cloud_create_openshift_cluster.yaml
+    - name: redhat_cloud_create_openshift_cluster
+      include_role:
+        name: redhat_cloud
+        tasks_from: play_redhat_cloud_create_openshift_cluster.yaml
 
-    # - name: redhat_cloud_create_openshift_infra_envs
-      # include_role:
-        # name: redhat_cloud
-        # tasks_from: play_redhat_cloud_create_openshift_infra_envs.yaml
+    - name: redhat_cloud_create_openshift_infra_envs
+      include_role:
+        name: redhat_cloud
+        tasks_from: play_redhat_cloud_create_openshift_infra_envs.yaml
 
-    # - name: redhat_cloud_openshift_cluster_add_metal_hosts
-      # include_role:
-        # name: redhat_cloud
-        # tasks_from: play_redhat_cloud_openshift_cluster_add_metal_hosts.yaml
+    - name: redhat_cloud_openshift_cluster_add_metal_hosts
+      include_role:
+        name: redhat_cloud
+        tasks_from: play_redhat_cloud_openshift_cluster_add_metal_hosts.yaml
         
-# - name: opsbox_download_openshift_discovery_iso
-  # hosts: tag_ocp_opsbox
-  # gather_facts: false
-  # vars:
-    # - ansible_python_interpreter: auto_silent  
-  # tasks:
+- name: opsbox_download_openshift_discovery_iso
+  hosts: tag_ocp_opsbox
+  gather_facts: false
+  vars:
+    - ansible_python_interpreter: auto_silent  
+  tasks:
   
-    # - name: opsbox_download_openshift_discovery_iso
-      # include_role:
-        # name: opsbox
-        # tasks_from: play_opsbox_download_openshift_discovery_iso.yaml
+    - name: opsbox_download_openshift_discovery_iso
+      include_role:
+        name: opsbox
+        tasks_from: play_opsbox_download_openshift_discovery_iso.yaml
 
-# - name: metal_reboot_ocp_hosts
-  # hosts: localhost
-  # gather_facts: false
-  # vars:
-    # - ansible_python_interpreter: "{{ ansible_playbook_python }}"
+- name: metal_reboot_ocp_hosts
+  hosts: localhost
+  gather_facts: false
+  vars:
+    - ansible_python_interpreter: "{{ ansible_playbook_python }}"
 
-  # tasks:
-    # - name: metal_reboot_ocp_hosts
-      # include_role:
-        # name: metal
-        # tasks_from: play_metal_reboot_ocp_hosts.yaml
+  tasks:
+    - name: metal_reboot_ocp_hosts
+      include_role:
+        name: metal
+        tasks_from: play_metal_reboot_ocp_hosts.yaml
 
 - name: play_redhat_cloud_openshift_cluster_start_cluster_install
   hosts: localhost

@@ -1,3 +1,4 @@
+---
 - name: redhat_cloud_create_openshift_cluster
   uri:
     url: "https://{{ redhat_assisted_service_api }}/api/assisted-install/v2/clusters"
@@ -10,7 +11,7 @@
       kind: Cluster
       name: "{{ metal_ocp_name }}"
       openshift_version: "{{ redhat_cluster_version }}"
-      ocp_release_image: "{{ redhat_cluster_image }}" 
+      ocp_release_image: "{{ redhat_cluster_image }}"
       base_dns_domain: "{{ metal_ocp_basedomain }}"
       hyperthreading: "all"
       ingress_vip: "{{ ocp_ips_apps_ip }}"
@@ -21,10 +22,10 @@
       platform:
         type: baremetal
       cluster_networks:
-        - { "cidr": "{{ redhat_cluster_network }}", "host_prefix": 23 } 
+        - { "cidr": "{{ redhat_cluster_network }}", "host_prefix": 23 }
       service_networks:
         - { "cidr": "{{ redhat_service_network }}" }
-      machine_networks: 
+      machine_networks:
         - { "cidr": "{{ ocp_ips_reservation_network_cidr }}" }
       network_type: OpenShiftSDN
       vip_dhcp_allocation: false
