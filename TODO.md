@@ -1,10 +1,16 @@
 ### TODO's
 
+#### Production Breaking Bugs
+
+- [ ] Need to fix serial / TTYS1
+  - Just need to patch the installer like documented [here](https://github.com/openshift/installer/blob/master/docs/user/customization.md)
+
+
 #### Improvements
 
-- [] Poll [reboot wait vs pause](https://github.com/dlotterman/metal_assisted_openshift/blob/74a771e214aabcfa53f2152b2f7525c97c09ff94/roles/metal/tasks/metal_reboot_ocp_hosts.yaml#L15)
-- [] Handle 4x NIC configurations (currently only handles 2x NIC configurations)
-- [] Improve cluster status / runbook to include polling of install
+- [ ] Poll [reboot wait vs pause](https://github.com/dlotterman/metal_assisted_openshift/blob/74a771e214aabcfa53f2152b2f7525c97c09ff94/roles/metal/tasks/metal_reboot_ocp_hosts.yaml#L15)
+- [ ] Handle 4x NIC configurations (currently only handles 2x NIC configurations)
+- [ ] Improve cluster status / runbook to include polling of install
 
 #### Documentation
 
