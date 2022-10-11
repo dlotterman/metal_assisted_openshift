@@ -1,10 +1,13 @@
 redhat_cloud_openshift_token: "{{ lookup('env', 'REDHAT_CLOUD_OPENSHIFT_TOKEN') }}"
 redhat_assisted_service_api: api.openshift.com
-redhat_cluster_version: "4.10"
-redhat_cluster_image: quay.io/openshift-release-dev/ocp-release:4.10.0-x86_64
+redhat_cluster_version: "4.11"
+redhat_cluster_image: quay.io/openshift-release-dev/ocp-release:4.11.0-x86_64
 redhat_cluster_network: 10.128.0.0/14
 redhat_service_network: 172.31.0.0/16
 
+
+# c3.small + c3.medium: ens3f
+# s3.xlarge: enp216s0f
 metal_host_interface_prefix: ens3f
 
 openshift_ssh_key: "{{ lookup('env', 'OCP_PUBLIC_SSH_KEY') }}"

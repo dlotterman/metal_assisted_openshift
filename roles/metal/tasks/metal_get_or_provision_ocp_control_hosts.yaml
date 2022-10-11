@@ -9,6 +9,7 @@
     facility: "{{ metal_facility }}"
     state: present
     wait_for_public_IPv: 4
+    always_pxe: true
     count: "{{ metal_ocp_num_control_hosts }}"
   register: metal_hosts_provision_ocp_control_hosts_output
 

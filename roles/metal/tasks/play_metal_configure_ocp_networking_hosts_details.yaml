@@ -1,3 +1,4 @@
 ---
 - include_tasks: metal_get_ocp_networking_hosts_details.yaml
-- include_tasks: metal_attach_ocp_networking_hosts_vlan.yaml
+- include_tasks: metal_attach_ocp_vlan_to_ocp_hosts.yaml
+- include_tasks: metal_attach_metal_data_vlans_to_ocp_hosts.yaml

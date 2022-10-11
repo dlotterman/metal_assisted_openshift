@@ -4,7 +4,7 @@ dhcp
 echo stepping_through_iso
 sleep 10
 
-sanboot http://{{ ocp_ips_opsbox_ip }}/discovery.iso
+sanboot http://{{ ocp_ips_opsbox_ip }}/discovery.iso || shell
 
 
 boot

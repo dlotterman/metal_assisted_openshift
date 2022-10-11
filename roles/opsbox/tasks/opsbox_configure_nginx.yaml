@@ -1,0 +1,7 @@
+- name: opsbox_nginx_service_enable
+  become: true
+  become_method: sudo
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
+    enabled: yes

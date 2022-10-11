@@ -8,4 +8,4 @@
 - include_tasks: opsbox_configure_firewalld.yaml
 - include_tasks: opsbox_configure_sshd.yaml
 - include_tasks: opsbox_template_ipxe_trafficstop_stall.yaml
-- include_tasks: opsbox_configure_ipxe.yaml
+- include_tasks: opsbox_configure_nginx.yaml

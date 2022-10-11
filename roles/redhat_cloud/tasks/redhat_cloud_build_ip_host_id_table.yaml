@@ -14,9 +14,8 @@
     ip_host_id_table: "{{ ip_host_id_table | default ({}) | combine ({ item.inventory | from_json | json_query(query_string) | first | first | split('/') | first : item.id}) }}"
   loop: "{{ redhat_cloud_openshift_cluster_with_hosts.json.hosts }}"
   vars:
-    query_string: "interfaces[?name=='bond0'].ipv4_addresses"
+    query_string: "interfaces[?name=='bond0.2335'].ipv4_addresses"
   no_log: true
-
 
 # Intended output
 # ok: [localhost] => {

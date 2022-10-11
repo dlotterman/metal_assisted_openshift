@@ -1,6 +1,9 @@
 ---
+metal_data_vlans:
+  - 2824
+  - 1987
 metal_ocp_vlan: 2335
 metal_api_token: "{{ lookup('env', 'METAL_API_TOKEN') }}"
 metal_ocp_name: ocp06
-metal_ocp_basedomain: da.dlott.casa
+metal_ocp_basedomain: INSERT_DOMAIN_HERE
 metal_ocp_domain: "{{ metal_ocp_name }}.{{ metal_ocp_basedomain }}"
