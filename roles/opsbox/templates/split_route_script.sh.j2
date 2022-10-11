@@ -2,6 +2,5 @@
 #!/bin/bash
 echo 200 bond0.{{ metal_ocp_vlan }} >> /etc/iproute2/rt_tables
 ip rule add from {{ hostvars['localhost']['ocp_ips_reservation_network_cidr'] | ansible.utils.nthhost(2) }} table bond0.{{ metal_ocp_vlan }} priority 900
-#ip rule add from dev bond0.{{ metal_ocp_vlan }} table bond0.{{ metal_ocp_vlan }} priority 1000
 ip route add default via {{ hostvars['localhost']['ocp_ips_reservation_network_cidr'] | ansible.utils.nthhost(1) }} dev bond0.{{ metal_ocp_vlan }} table bond0.{{ metal_ocp_vlan }}
 ip route add {{ hostvars['localhost']['ocp_ips_reservation_network_cidr'] }} dev bond0.{{ metal_ocp_vlan }} proto static scope link src {{ hostvars['localhost']['ocp_ips_reservation_network_cidr'] | ansible.utils.nthhost(2) }} table bond0.{{ metal_ocp_vlan }}

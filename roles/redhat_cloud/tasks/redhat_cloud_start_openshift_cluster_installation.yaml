@@ -1,3 +1,4 @@
+---
 - name: redhat_cloud_openshift_pause_for_ready
   ansible.builtin.pause:
     seconds: 10

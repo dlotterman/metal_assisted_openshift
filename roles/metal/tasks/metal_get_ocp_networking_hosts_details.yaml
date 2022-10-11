@@ -1,10 +1,11 @@
+---
 - name: metal_ocp_control_get_details
   uri:
     url: "https://api.equinix.com/metal/v1/devices/{{ hostvars[item].id }}"
     method: GET
-    headers: 
+    headers:
       X-Auth-Token: "{{ metal_api_token }}"
-    return_content: yes
+    return_content: true
     status_code: 200
   register: metal_hosts_provision_ocp_control_get_details
   loop: "{{ query('inventory_hostnames', 'tag_ocp_networking') }}"

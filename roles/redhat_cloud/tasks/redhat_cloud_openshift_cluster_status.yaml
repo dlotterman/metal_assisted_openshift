@@ -1,3 +1,4 @@
+---
 - name: redhat_cloud_bearer_token_print
   ansible.builtin.debug:
     msg: "Redhat Cloud Bearer Token {{ redhat_cloud_openshift_access_token }}"

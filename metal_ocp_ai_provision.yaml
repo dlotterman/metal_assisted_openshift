@@ -42,7 +42,7 @@
     - ansible_python_interpreter: "{{ ansible_playbook_python }}"
   tasks:
 
-    - name: metal_provision_ocp_control_hosts
+    - name: metal_get_or_provision_ocp_control_hosts
       include_role:
         name: metal
         tasks_from: play_metal_get_or_provision_ocp_control_hosts.yaml

@@ -1,5 +1,5 @@
 ---
-- name: metal_provision_ocp_metal_vlan
+- name: metal_standup_provision_metal_data_vlans
   uri:
     url: "https://api.equinix.com/metal/v1/projects/{{ metal_project_id }}/virtual-networks"
     method: POST
@@ -8,6 +8,7 @@
     body_format: json
     body:
       metro: "{{ metal_metro }}"
-      vxlan: "{{ metal_ocp_vlan }}"
-      description: "{{ metal_ocp_domain }}"
+      vxlan: "{{ item }}"
+      description: "metal_data_{{ metal_ocp_domain }}"
     status_code: [201, 422]
+  loop: "{{ metal_data_vlans }}"

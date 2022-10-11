@@ -5,7 +5,7 @@ The Ansible and associated glue in this repository leverages the [Assisted Servi
 
 The intent behind this repository is to reduce the barrier to entry for customers looking to explore the OpenShift ecosystem via Equinix Metal as the Bare Metal infrastructure provider.
 
-This repository should be considered exploratory documentation only, it should not be considered as supported or production ready. As of September / October 2022, this repository is under active development with significant TODOs, so much so putting together the TODO is a TODO.
+This repository should be considered exploratory documentation only, it should not be considered as supported or production ready. 
 
 ## Getting Started and other Documentation
 
@@ -17,3 +17,7 @@ This repository should be considered exploratory documentation only, it should n
 ![](https://s3.us-east-1.wasabisys.com/metalstaticassets/metal_openshift_diagram.JPG)
 
 - [Time accelerated demo video](https://equinixinc-my.sharepoint.com/:v:/g/personal/dlotterman_equinix_com/EQ8sqptzxftClH3fVmJrvJgBYq7NIE3hNL3NaDrzNZyL4g?e=wr4SMi)
+
+### TODO's
+
+[Tracked here](TODO.md)

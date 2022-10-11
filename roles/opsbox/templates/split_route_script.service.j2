@@ -1,5 +1,7 @@
 [Unit]
 Description=split_route_for_ocp
+Wants=network-online.target
+After=network.target network-online.target
 
 [Service]
 Type=simple

@@ -1,9 +1,9 @@
 ### Equinix Metal Configuration Types
-- `m3.small.x86`: Known issue with BMC virtual NIC prevents use as OCP instance, can be opsbox instance. Work pending from Redhat to fix
+- `m3.small.x86`: [Known issue with BMC](https://github.com/openshift/assisted-service/pull/4350) virtual NIC prevents use as OCP instance, can be opsbox instance. Work pending from Redhat to fix
 - `c3.small.x86`: Should work as both OCP and opsbox instances
 - `n2/n3.xlarge.x86`: Not tested, likely Ansible issues around 4x NIC awareness
 - `c2/3.medium.x86 / m3.large.x86`: Mixed bag. Instances of these types delivered as R6515's may have an old firmware that errors OS booting after the initial OCP installation. These instance types likely take baby sitting.
-- `s3.xlarge.x86`: not actively tested but should work
+- `s3.xlarge.x86`: Does not complete OCP clustering reboot loop, may need to specify what disk to install too
 
 ### SOS / OOB / Console Output
 OCP currently gets installed in such a way as the redirection to console is broken for use with the Metal OOB / SOS. This is known and understood, fix is known and undertood, simply not yet implemented in this repository
