@@ -1,3 +1,4 @@
+---
 - name: redhat_cloud_openshift_get_cluster_with_hosts
   uri:
     url: "https://{{ redhat_assisted_service_api }}/api/assisted-install/v2/clusters/{{ openshift_cluster_id }}?with_hosts=true"
@@ -23,5 +24,22 @@
         # "147.28.149.229": "1c273d26-fbab-182b-06be-de07368b6191",
         # "147.28.149.230": "4684ff4c-f38d-1b8e-6a17-51ac4803b6f3",
         # "147.28.149.231": "c54e7467-dd4c-ee96-1b58-e3b82eaa63a9"
+    # }
+# 
+
+- name: redhat_cloud_build_hostname_id_table
+  ansible.builtin.set_fact:
+    hostname_id_table: "{{ hostname_id_table | default({}) |  combine ({ item : ip_host_id_table.get(host_ip) }) }}"
+  loop: "{{ query('inventory_hostnames', 'tag_ocp_networking') }}"
+  vars:
+    host_ip: "{{ host_ip_table.get(item) }}"
+
+# Intended output 
+# ok: [localhost] => {
+    # "hostname_id_table": {
+        # "control01.ocp09.da.dlott.casa": "160d0040-77cd-ed18-a6dc-b051e47d3a01",
+        # "control02.ocp09.da.dlott.casa": "397b38c1-be02-2070-b46a-cda25b37a20f",
+        # "control03.ocp09.da.dlott.casa": "2f5f484d-b185-17e3-5f2c-5626313113ab",
+        # "worker01.ocp09.da.dlott.casa": "4a817e70-9f0d-97ba-7772-df5e7d76bf13"
     # }
 # }

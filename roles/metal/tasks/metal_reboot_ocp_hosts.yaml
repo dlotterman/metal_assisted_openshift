@@ -8,9 +8,19 @@
     plan: "{{ metal_ocp_control_host_config }}"
     facility: "{{ metal_facility }}"
     state: rebooted
-    wait_for_public_IPv: 4
     count: "{{ metal_ocp_num_control_hosts }}"
   register: metal_reboot_ocp_hosts_output
+
+- name: metal_provision_ocp_worker_hosts
+  equinix.metal.device:
+    project_id: "{{ metal_project_id }}"
+    hostnames: "worker%02d.{{ metal_ocp_domain }}"
+    tags: ocp,ocp_rhcos,ocp_networking,ocp_worker
+    operating_system: custom_ipxe
+    plan: "{{ metal_ocp_worker_host_config }}"
+    facility: "{{ metal_facility }}"
+    state: rebooted
+    count: "{{ metal_ocp_num_worker_hosts }}"
 
 - name: metal_reboot_ocp_hosts_wait
   ansible.builtin.pause:

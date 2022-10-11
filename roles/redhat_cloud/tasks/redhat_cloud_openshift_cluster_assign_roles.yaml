@@ -1,0 +1,13 @@
+---
+- name: redhat_cloud_openshift_cluster_assign_roles
+  uri:
+    url: "https://{{ redhat_assisted_service_api }}/api/assisted-install/v2/infra-envs/{{ openshift_infra_env_id }}/hosts/{{ hostname_id_table.get(item) }}"
+    method: PATCH
+    body_format: json
+    headers:
+      Content-Type: application/json
+      Authorization: "Bearer {{ redhat_cloud_openshift_access_token }}"
+    body:
+      host_role: "worker"
+    status_code: [200, 201, 422]
+  loop: "{{ query('inventory_hostnames', 'tag_ocp_worker') }}"

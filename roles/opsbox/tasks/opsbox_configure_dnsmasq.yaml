@@ -1,3 +1,4 @@
+---
 - name: opsbox_template_dnsmasq_conf
   become: yes
   become_method: sudo    
