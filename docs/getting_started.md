@@ -20,18 +20,18 @@ Besides standard nix-like tooling, the remaining requirement is access to the pu
 For the sake of being *copy + paste* useable, commands here will assume a RHEL8-clone (CentOS, Rocky or Alma) environment.
 
 - [Install git](https://github.com/git-guides/install-git)
-  - `sudo dnf install git -y`
+  - RHEL-8 clone: `sudo dnf install git -y`
 
 - Clone this repository:
   - `git clone https://github.com/dlotterman/metal_assisted_openshift`
 
-- (On RHEL-8 clones) Install Python39 or newer:
-  - `sudo dnf install python39 -y`
+- Install Python39 or newer:
+  - On RHEL-8 clones `sudo dnf install python39 -y`
+  - On Ubuntu 22.04: `sudo apt install python3.10-venv`
 
 - Create the Python virtualenv
   - `python3 -m venv metal_assisted_openshift`
-  - On RHEL8-clone
-	- `python3.9 -m venv metal_assisted_openshift`
+	- On RHEL8-clone: `python3.9 -m venv metal_assisted_openshift`
 
 - Change into the repository directory
   - `cd metal_assisted_openshift`
@@ -90,6 +90,45 @@ There should be no other configuration required, defaults are provided to provis
 
 If everything is setup correctly, you should be able to run `ansible-inventory -i equinix_metal.yaml --list` and the command will return **empty** but *without errors*.
 
+With errors:
+```
+$ ansible-inventory -i equinix_metal.yaml --list
+[WARNING]:  * Failed to parse /home/adminuser/code/metal_assisted_openshift/equinix_metal.yaml with auto plugin: Failed
+to query devices from Equinix Metal API. Error 404: Not found
+[WARNING]:  * Failed to parse /home/adminuser/code/metal_assisted_openshift/equinix_metal.yaml with yaml plugin: Plugin
+configuration YAML file, not YAML inventory
+[WARNING]:  * Failed to parse /home/adminuser/code/metal_assisted_openshift/equinix_metal.yaml with ini plugin: Invalid
+host pattern '---' supplied, '---' is normally a sign this is a YAML file.
+[WARNING]: Unable to parse /home/adminuser/code/metal_assisted_openshift/equinix_metal.yaml as an inventory source
+[WARNING]: No inventory was parsed, only implicit localhost is available
+{
+    "_meta": {
+        "hostvars": {}
+    },
+    "all": {
+        "children": [
+            "ungrouped"
+        ]
+    }
+}
+```
+
+*Without* errors:
+```
+$ ansible-inventory -i equinix_metal.yaml --list
+{
+    "_meta": {
+        "hostvars": {}
+    },
+    "all": {
+        "children": [
+            "equinix_metal",
+            "ungrouped"
+        ]
+    }
+}
+```
+
 ### Provisioning the environment
 
 This is the fun part. Execute this command to have Ansible provision the Equinix Metal resources and bootstrap them through the Redhat Cloud managed OpenShift installation process.
@@ -109,9 +148,9 @@ It can take up an hour and a half for it to complete, you can watch the progress
 
 - SSH Error to OpsBox
 
-        ```failed: [opsbox01.ocp06.da.dlott.casa] (item=/metal) => {"ansible_loop_var": "item", "item": "/metal", "msg": "Failed to connect to the host via ssh: Warning: Permanently added '147.75.53.55' (ECDSA) to the list of known hosts.\r\nroot@147.75.53.55: Permission denied (publickey).", "unreachable": true}
-        failed: [opsbox01.ocp06.da.dlott.casa] (item=/metal/ansible_lock_dir) => {"ansible_loop_var": "item", "item": "/metal/ansible_lock_dir", "msg": "Failed to connect to the host via ssh: root@147.75.53.55: Permission denied (publickey).", "unreachable": true}
-        ```
+	```failed: [opsbox01.ocp06.da.dlott.casa] (item=/metal) => {"ansible_loop_var": "item", "item": "/metal", "msg": "Failed to connect to the host via ssh: Warning: Permanently added '147.75.53.55' (ECDSA) to the list of known hosts.\r\nroot@147.75.53.55: Permission denied (publickey).", "unreachable": true}
+	failed: [opsbox01.ocp06.da.dlott.casa] (item=/metal/ansible_lock_dir) => {"ansible_loop_var": "item", "item": "/metal/ansible_lock_dir", "msg": "Failed to connect to the host via ssh: root@147.75.53.55: Permission denied (publickey).", "unreachable": true}
+	```
   - Ensure the execution environment you have is setup with the right private SSH keys as to use the same Public SSH key uploaded to your [Metal Account](https://metal.equinix.com/developers/docs/accounts/ssh-keys/)
 
 #### De-provisioning the environment
