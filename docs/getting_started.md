@@ -72,10 +72,12 @@ This ansible configuration uses Ansible's [Dynamic Inventory](https://docs.ansib
 
 The Dynamic Inventory plugin for Equinix Metal comes via it's [Ansible Galaxy package](https://galaxy.ansible.com/equinix/metal). 
 
-The only configuration required is:
+To configure the dynamic inventory file, edit the YAML file to add your project UUID string:
   - Editing the `projects:` stanza of the [Dynamic Inventory file](../equinix_metal.yaml#L15)
 
 This should be updated to the same Metal Project UUID string as used in the earlier environment variable setup. 
+
+The domain name for the cluster also needs to be updated in `group_vars/all.yaml`.
 
 #### OpenShift Cluster Naming
 
