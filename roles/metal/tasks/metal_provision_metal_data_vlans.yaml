@@ -1,5 +1,5 @@
 ---
-- name: metal_standup_provision_metal_data_vlans
+- name: metal_provision_metal_data_vlans
   uri:
     url: "https://api.equinix.com/metal/v1/projects/{{ metal_project_id }}/virtual-networks"
     method: POST
