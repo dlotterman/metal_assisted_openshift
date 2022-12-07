@@ -1,5 +1,5 @@
 ---
-- name: metal_provision_ocp_worker_hosts
+- name: metal_get_or_provision_ocp_worker_hosts
   equinix.metal.device:
     project_id: "{{ metal_project_id }}"
     hostnames: "worker%02d.{{ metal_ocp_domain }}"
@@ -12,10 +12,11 @@
     wait_for_public_IPv: 4
     always_pxe: true
     count: "{{ metal_ocp_num_worker_hosts }}"
-  register: metal_hosts_provision_ocp_worker_hosts_output
+  register: metal_get_or_provision_ocp_worker_hosts
+  when: metal_ocp_num_worker_hosts != 0
 
 # TODO This should be a wait for instance to go green state URI call loop
-- name: metal_provision_ocp_worker_hosts_wait_for_provisions
+- name: metal_get_or_provision_ocp_worker_hosts_wait_for_provisions
   ansible.builtin.pause:
     seconds: 480
-  when: metal_hosts_provision_ocp_worker_hosts_output.changed
+  when: metal_get_or_provision_ocp_worker_hosts.changed
