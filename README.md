@@ -16,7 +16,7 @@ This repository should be considered exploratory documentation only, it should n
 
 ![](https://s3.us-east-1.wasabisys.com/metalstaticassets/metal_openshift_diagram.JPG)
 
-- [Time accelerated demo video](https://equinixinc-my.sharepoint.com/:v:/g/personal/dlotterman_equinix_com/EQ8sqptzxftClH3fVmJrvJgBYq7NIE3hNL3NaDrzNZyL4g?e=wr4SMi)
+- [Time accelerated demo video](https://equinixinc-my.sharepoint.com/:v:/g/personal/dlotterman_equinix_com/EQ8sqptzxftClH3fVmJrvJgBraX_KDFhEqLN6qCJcd1y5w?e=Rbms72)
 
 ### TODO's
 
