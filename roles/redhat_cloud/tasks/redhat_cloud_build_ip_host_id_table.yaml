@@ -16,7 +16,7 @@
   loop: "{{ redhat_cloud_openshift_cluster_with_hosts.json.hosts }}"
   vars:
     query_string: "interfaces[?name=='bond0.2335'].ipv4_addresses"
-  no_log: true
+  no_log: false
 
 # Intended output
 # ok: [localhost] => {
@@ -25,7 +25,7 @@
         # "147.28.149.230": "4684ff4c-f38d-1b8e-6a17-51ac4803b6f3",
         # "147.28.149.231": "c54e7467-dd4c-ee96-1b58-e3b82eaa63a9"
     # }
-# 
+#
 
 - name: redhat_cloud_build_hostname_id_table
   ansible.builtin.set_fact:
@@ -34,7 +34,7 @@
   vars:
     host_ip: "{{ host_ip_table.get(item) }}"
 
-# Intended output 
+# Intended output
 # ok: [localhost] => {
     # "hostname_id_table": {
         # "control01.ocp09.da.dlott.casa": "160d0040-77cd-ed18-a6dc-b051e47d3a01",
