@@ -4,4 +4,3 @@ dhcp
 echo stepping_through_embed
 sleep 10
 chain http://{{ hostvars['localhost']['ocp_ips_reservation_network_cidr'] | ansible.utils.nthhost(2) }}/ipxes/trafficstop.ipxe || shell
-

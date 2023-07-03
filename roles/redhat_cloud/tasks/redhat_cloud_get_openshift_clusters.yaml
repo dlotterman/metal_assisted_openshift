@@ -2,7 +2,7 @@
   uri:
     url: "https://{{ redhat_assisted_service_api }}/api/assisted-install/v2/clusters"
     method: GET
-    headers: 
+    headers:
       accept: application/json
       Authorization: "Bearer {{ redhat_cloud_openshift_access_token }}"
     return_content: yes

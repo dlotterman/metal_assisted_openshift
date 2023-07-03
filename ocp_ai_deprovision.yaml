@@ -9,4 +9,3 @@
       include_role:
         name: redhat_cloud
         tasks_from: play_redhat_cloud_delete_openshift_cluster.yaml
-
