@@ -1,12 +1,12 @@
 ---
 - name: opsbox_template_dnsmasq_conf
   become: yes
-  become_method: sudo    
+  become_method: sudo
   template:
     src: roles/opsbox/templates/dnsmasq.conf.j2
     dest: /etc/dnsmasq.conf
   register: dnsmasq_conf
-  
+
 - name: metal_hosts_service_dnsmasq_restart
   become: true
   become_method: sudo
@@ -14,11 +14,11 @@
     name: dnsmasq
     state: restarted
     enabled: yes
-  when: dnsmasq_conf.changed 
+  when: dnsmasq_conf.changed
 
 - name: metal_standup_opsbox_self_dns
   become: true
-  become_method: sudo    
+  become_method: sudo
   community.general.nmcli:
     conn_name: bond0
     state: present

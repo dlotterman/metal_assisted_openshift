@@ -84,4 +84,4 @@
     host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
     port: 22
     state: started
-    timeout: 500    
+    timeout: 500

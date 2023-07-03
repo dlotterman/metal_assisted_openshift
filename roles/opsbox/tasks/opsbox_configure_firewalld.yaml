@@ -35,7 +35,7 @@
     zone: public
     permanent: yes
   register: opsbox_firewalld
-  
+
 - name: opsbox_firewalld_allow_bond_ocp_vlan
   become: true
   become_method: sudo
@@ -44,7 +44,7 @@
     interface: bond0.{{ metal_ocp_vlan }}
     zone: trusted
     permanent: yes
-  register: opsbox_firewalld      
+  register: opsbox_firewalld
 
 - name: opsbox_firewalld_allow_metal_10_0_0_0_8
   become: true
@@ -55,7 +55,7 @@
     zone: trusted
     permanent: yes
   register: opsbox_firewalld
-  
+
 - name: opsbox_firewalld_block_icmp_redirect
   become: true
   become_method: sudo
@@ -80,4 +80,4 @@
   become: true
   become_method: sudo
   ansible.builtin.command: firewall-cmd --reload
-  when: metal_hosts_firewalld.changed  
+  when: metal_hosts_firewalld.changed

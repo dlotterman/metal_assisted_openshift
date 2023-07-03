@@ -9,7 +9,7 @@ This will be used to write out a couple of configuration files as well as just b
 - Go to the Operator Hub
   - Search Web Terminal
   - Intall Web Terminal
-  
+
 #### Install Local Storage Operator
 
 - Go to Operator Hub
@@ -34,8 +34,8 @@ This will be used to write out a couple of configuration files as well as just b
     - ** IMPORTANT ** If when you enter the "Create StorageSystem" page, you get a page that asks for "Name, Labels, name" etc, and has a drop down for "kind" with only two options where one of those options is Flashblade, ** THIS IS A BUG in OCP 4.11 ** and the browser has a bad cache. Simply clear cache for the site or log in with a new incognito window and you should be good to proceed
 	- What you ** SHOULD SEE ** is  form with a drop down for "Deployment Type" and a list of task subjects that includes "Backing Storage, create local volume set" etc.
 		- One should be able to click though this with all the defaults besides adding names
-		  - ** NAMES SHOULD BE SHORT ** There is a bug in names that are longer than 12 chars or similar. 
-	- The Storage System creation can take several minutes while the storage system is spun up. 
+		  - ** NAMES SHOULD BE SHORT ** There is a bug in names that are longer than 12 chars or similar.
+	- The Storage System creation can take several minutes while the storage system is spun up.
 - It make take a "Forced Refresh" of your browser for the "Storage" category to load.
 - Once Data Foundation is installed, we need to set a default storage class ahead of virtualization being installed.
   - Under "Storage", go to "Storage Classes"
@@ -74,7 +74,7 @@ This will be used to write out a couple of configuration files as well as just b
 - When installed, find the NMState Operator in the Operator hub and go into it's details page
   - Click on and add "Create instance" of NMstate in it's Operator Hub page.
     - Click through defaults are fine
-  
+
 #### Apply networking
 
 We first need to add a `NodeNetworkConfigurationPolicy` that adds a VM centric VLAN and bridge interface. This will let hosted VM's communicate in their own Metal VLAN network.

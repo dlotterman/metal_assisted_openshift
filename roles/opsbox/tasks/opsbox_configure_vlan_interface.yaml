@@ -7,7 +7,7 @@
 
 - name: opsbox_configure_vlan_interface
   become: true
-  become_method: sudo    
+  become_method: sudo
   community.general.nmcli:
     type: vlan
     conn_name: bond0.{{ metal_ocp_vlan }}
@@ -26,7 +26,7 @@
     src: roles/opsbox/templates/split_route_script.sh.j2
     dest: /metal/scripts/split_route_script.sh
     mode: '0744'
-    
+
 - name: opsbox_template_split_networking_service
   become: true
   become_method: sudo

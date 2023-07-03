@@ -9,7 +9,7 @@ Before beginning, it is strongly recomemended that an operator complete the [Equ
 - [Redhat Cloud OpenShift Manager API Token](https://console.redhat.com/openshift/token)
 - [Redhat Cloud OpenShift pull-secret](https://console.redhat.com/openshift/install/pull-secret)
 
-You will also need an SSH key-pair to use as the administrative SSH credentials to log into the Control / Worker nodes. You can use the same SSH key-pair as your [Metal account](https://metal.equinix.com/developers/docs/accounts/ssh-keys/) or create a new one specific to OCP cluster management. Ansible will assume passwordless SSH authentication so the keys must be properly configured prior to beginning. 
+You will also need an SSH key-pair to use as the administrative SSH credentials to log into the Control / Worker nodes. You can use the same SSH key-pair as your [Metal account](https://metal.equinix.com/developers/docs/accounts/ssh-keys/) or create a new one specific to OCP cluster management. Ansible will assume passwordless SSH authentication so the keys must be properly configured prior to beginning.
 
 ### Environment setup:
 
@@ -70,18 +70,18 @@ You must also always source the `activate` environment setup helper every new se
 
 This ansible configuration uses Ansible's [Dynamic Inventory](https://docs.ansible.com/ansible/latest/user_guide/intro_dynamic_inventory.html) feature, meaning that all of the inventorying of Metal resources will be done dynamically via the API. The collection of Metal instances provisioned and their associated attributes is managed via groupings of [Device Taggings](https://metal.equinix.com/developers/docs/server-metadata/device-tagging/) in realtime.
 
-The Dynamic Inventory plugin for Equinix Metal comes via it's [Ansible Galaxy package](https://galaxy.ansible.com/equinix/metal). 
+The Dynamic Inventory plugin for Equinix Metal comes via it's [Ansible Galaxy package](https://galaxy.ansible.com/equinix/metal).
 
 To configure the dynamic inventory file, edit the YAML file to add your project UUID string:
   - Editing the `projects:` stanza of the [Dynamic Inventory file](../equinix_metal.yaml#L15)
 
-This should be updated to the same Metal Project UUID string as used in the earlier environment variable setup. 
+This should be updated to the same Metal Project UUID string as used in the earlier environment variable setup.
 
 The domain name for the cluster also needs to be updated in `group_vars/all.yaml`.
 
 #### OpenShift Cluster Naming
 
-The name and search domain of the cluster must be set in the [group_vars file](../group_vars/all.yaml). 
+The name and search domain of the cluster must be set in the [group_vars file](../group_vars/all.yaml).
 
 It makes life significantly easier if this can be a publically resovable / updateable name and domain.
 

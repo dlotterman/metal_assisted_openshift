@@ -17,4 +17,4 @@
 - name: metal_provision_ocp_control_hosts_wait_for_provisions
   ansible.builtin.pause:
     seconds: 480
-  when: metal_hosts_provision_ocp_control_hosts_output.changed  
+  when: metal_hosts_provision_ocp_control_hosts_output.changed

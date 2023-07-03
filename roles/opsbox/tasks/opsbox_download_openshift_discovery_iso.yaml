@@ -7,7 +7,7 @@
 
 - name: opsbox_download_openshift_discovery_iso
   become: true
-  become_method: sudo  
+  become_method: sudo
   ansible.builtin.get_url:
     url: "{{ discovery_iso_url }}"
     dest: /usr/share/nginx/html/discovery.iso

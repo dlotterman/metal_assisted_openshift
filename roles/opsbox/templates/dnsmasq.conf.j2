@@ -8,7 +8,7 @@ cache-size=2047
 neg-ttl=360
 no-poll
 log-queries
-log-dhcp                                                                                                                   
+log-dhcp
 log-facility=/var/log/dnsmasq.log
 server=147.75.207.207
 server=147.75.207.208
@@ -27,4 +27,3 @@ domain={{ metal_ocp_domain }}
 {{"address=/api."}}{{ metal_ocp_domain }}/{{ ocp_ips_api_ip }}
 {{"address=/api-int."}}{{ metal_ocp_domain }}/{{ ocp_ips_api_ip }}
 {{"address=/apps."}}{{ metal_ocp_domain }}/{{ ocp_ips_apps_ip }}
-

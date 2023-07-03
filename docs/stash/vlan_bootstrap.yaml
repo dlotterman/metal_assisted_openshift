@@ -1,17 +1,17 @@
-dns-resolver: 
-  config: 
-    server: 
+dns-resolver:
+  config:
+    server:
       - "147.75.207.207"
-interfaces: 
-- 
-  ipv4: 
-    address: 
-      - 
+interfaces:
+-
+  ipv4:
+    address:
+      -
         ip: "147.28.149.178"
         prefix-length: 28
     dhcp: false
     enabled: true
-  ipv6: 
+  ipv6:
     enabled: false
   name: bond0.2335
   state: up
@@ -19,24 +19,24 @@ interfaces:
   vlan:
     base-iface: bond0
     id: 2335
-- 
+-
   name: bond0
   ipv4:
     enabled: false
-  ipv6: 
+  ipv6:
     enabled: false
   state: up
   type: bond
-  link-aggregation: 
+  link-aggregation:
     mode: 802.3ad
     options:
       miimon: "100"
-    slaves: 
+    slaves:
       - ens3f0
-      - ens3f1  
-routes: 
-  config: 
-    - 
+      - ens3f1
+routes:
+  config:
+    -
       destination: 0.0.0.0/0
       next-hop-address: "147.28.149.225"
       next-hop-interface: bond0.2335
