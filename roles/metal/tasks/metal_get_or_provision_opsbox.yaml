@@ -5,7 +5,7 @@
     tags: ocp,ocp_rocky8,ocp_opsbox
     operating_system: rocky_8
     plan: "{{ metal_opsbox_config }}"
-    facility: "{{ metal_facility }}"
+    metro: "{{ metal_metro }}"
     state: present
     wait_for_public_IPv: 4
   register: metal_provision_opsbox_output

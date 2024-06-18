@@ -6,8 +6,8 @@ strict: false
 keyed_groups:
   - prefix: tag
     key: tags
-  - key: facility
-    prefix: equinix_metal_facility
+  - key: metro
+    prefix: equinix_metal_metro
   - key: state
     prefix: equinix_metal_state
 

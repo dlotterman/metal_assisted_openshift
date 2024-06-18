@@ -6,7 +6,7 @@
     operating_system: custom_ipxe
     ipxe_script_url: "http://{{ hostvars['localhost']['ocp_ips_reservation_network_cidr'] | ansible.utils.nthhost(2) }}/ipxes/trafficstop.ipxe"
     plan: "{{ metal_ocp_control_host_config }}"
-    facility: "{{ metal_facility }}"
+    metro: "{{ metal_metro }}"
     state: present
     wait_for_public_IPv: 4
     always_pxe: true
