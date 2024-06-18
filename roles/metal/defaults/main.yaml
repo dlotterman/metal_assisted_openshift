@@ -1,6 +1,5 @@
 ---
 metal_project_id: "{{ lookup('env', 'METAL_PROJ_ID') }}"
-metal_facility: da11
 metal_metro: da
 
 metal_opsbox_config: "m3.small.x86"

@@ -6,7 +6,7 @@
     tags: ocp,ocp_rhcos,ocp_control,ocp_networking
     operating_system: custom_ipxe
     plan: "{{ metal_ocp_control_host_config }}"
-    facility: "{{ metal_facility }}"
+    metro: "{{ metal_metro }}"
     state: rebooted
     count: "{{ metal_ocp_num_control_hosts }}"
   register: metal_reboot_ocp_hosts_output
@@ -18,7 +18,7 @@
     tags: ocp,ocp_rhcos,ocp_networking,ocp_worker
     operating_system: custom_ipxe
     plan: "{{ metal_ocp_worker_host_config }}"
-    facility: "{{ metal_facility }}"
+    metro: "{{ metal_metro }}"
     state: rebooted
     count: "{{ metal_ocp_num_worker_hosts }}"
 
